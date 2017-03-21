@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		#div1 { width:260px; height:160px; color:#fff; padding:20px; background:yellowgreen; }
+		#ul1 { padding:0; overflow:hidden; }
+		#ul1 li { list-style:none; float:left; margin:10px; }
+		#ul1 img { border:10px solid #ccc; width:200px; border-radius:50%; }
+	</style>
+</head>
+<body>	
+	<div id="div1">请将图片拖拽到此处</div>
+	<ul id="ul1"></ul>
+	<script type="text/javascript">
+		var oDiv = document.getElementById('div1');
+		var oUl = document.getElementById('ul1');
+
+		oDiv.ondragenter = function() {
+			this.innerHTML = '可以释放鼠标啦';
+		}
+		oDiv.ondragover = function( ev ) {
+			var ev = ev || event;
+			// 这样才能用ondrop
+			ev.preventDefault();
+		}
+		oDiv.ondragleave = function() {
+			this.innerHTML = '请将图片拖拽到此处';
+		}
+		oDiv.ondrop = function( ev ) {
+			var ev = ev || event;
+			// 阻止默认打开图片
+			ev.preventDefault();
+
+			var fs = ev.dataTransfer.files;
+
+			for ( var i = 0; i < fs.length; i ++ ) {
+
+				if ( fs[i].type.indexOf('image') != -1 ) {
+					var fd = new FileReader();
+
+					fd.readAsDataURL( fs[i] );
+
+					fd.onload = function() {
+						var oLi = document.createElement('li');
+						var oImg = document.createElement('img');
+
+						oImg.src = this.result;
+						oLi.appendChild( oImg );
+						oUl.appendChild( oLi );
+
+					}
+				} else {
+					alert('请上传图片！');
+					
+				}
+			}
+
+			this.innerHTML = '请将图片拖拽到此处';
+		}
+	</script>
+</body>
+</html>
