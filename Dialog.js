@@ -60,10 +60,6 @@ Dialog.prototype = {
 
 		this.oDialog.className = 'dialog';
 		this.oDialog.innerHTML = '<span class="dialog_title">'+ this.settings.title +'<button>&#215;</button></span><p>'+ this.settings.content+'</p>';
-
-		
-
-
 		this.oClose = this.oDialog.getElementsByTagName('button')[0];
 
 		// 查看是否有选项
@@ -75,7 +71,6 @@ Dialog.prototype = {
 
 			var oButton = document.createElement('button');
 			
-
 			if ( opts.answer ) {
 
 				oButton.innerHTML = this.settings.answer.no;
@@ -84,7 +79,6 @@ Dialog.prototype = {
 				oButton.innerHTML = this.settings.answer.yes;
 				oAnswer.appendChild( oButton );
 
-				
 			} else if ( opts.sure ) {
 				oButton.innerHTML = this.settings.sure;
 				oAnswer.appendChild(oButton);
@@ -92,7 +86,6 @@ Dialog.prototype = {
 			
 			this.oDialog.appendChild(hr);
 			this.oDialog.appendChild(oAnswer);
-
 			this.aAnswer = oAnswer.getElementsByTagName('button');
 
 			this.return();
@@ -100,7 +93,6 @@ Dialog.prototype = {
 		} 
 		// 设置初始样式
 		this.oDialog.style.width = this.settings.width + 'px';
-		
 		this.oWrap.style.left = (document.documentElement.clientWidth - parseInt(getStyle(this.oDialog, 'width')) )/2 + 'px';
 		this.oWrap.style.top = '20px';
 		this.oWrap.style.height = parseInt( getStyle( this.oDialog, 'height')) + 'px';
@@ -126,15 +118,12 @@ Dialog.prototype = {
 				// _this.oWrap.style.cursor = 'move';
 				_this.dragMove(ev);
 			}
-
 			document.onmouseup = function() {
 				_this.dragUp();
 
 			}
-
 			return false;
 		}
-		
 	},
 	dragDown : function(ev) {
 		// this.oWrap.style.cursor = 'move';
@@ -148,7 +137,6 @@ Dialog.prototype = {
 		var T = ev.clientY - this.disY;
 		var maxL = document.documentElement.clientWidth - this.oWrap.offsetWidth;
 		var maxT = document.documentElement.clientHeight - this.oWrap.offsetHeight;
-
 		// 限制范围的拖拽
 		if ( L < 0 ) {
 			L = 0;
@@ -160,14 +148,12 @@ Dialog.prototype = {
 		} else if ( T > maxT ) {
 			T = maxT;
 		}
-
 		this.oWrap.style.left = L + 'px';
 		this.oWrap.style.top = T + 'px';
 	},
 	dragUp : function() {
 		this.oWrap.style.cursor = 'default';
 		document.onmouseup = document.onmousemove = null;
-
 	},
 	// 点击x关闭
 	oCloseClick : function(){
@@ -175,13 +161,10 @@ Dialog.prototype = {
 		this.oClose.onclick = function() {
 			_this.close();
 		}
-		
 	},
 	// 直接关闭
 	close : function() {
-	
 		var _this = this;
-		
 		var timer = setInterval(function(){
 			var iH = parseInt(getStyle(_this.oWrap, 'height'));
 			var iSpeed = -iH/20;
@@ -223,7 +206,6 @@ function getValue( obj ) {
 		pos.t += obj.offsetTop;
 		obj = obj.offsetParent;
 	}
-
 	return pos;
 }
 
