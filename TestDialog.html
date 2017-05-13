@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="Dialog.css">
+	<script src="Dialog.js"></script>
+	<script>
+		window.onload = function() {
+
+			/*
+				存在问题：
+					1.拖拽与点击冲突
+
+			*/
+
+			// var d1 = new Dialog();
+			// d1.init({
+			// 	title : '这是测试title',
+			// 	content : '这是测试content'
+			// });
+
+			var d2 = new Dialog();
+			
+			d2.init({
+				title : '这是测试title',
+				content : '这是测试contentdefine(function(require, exports, module) {//=> 加载的是 https://a.alipayobjects.com/gallery/ underscore.js});varsObject变量配置。有些场景下，模块路径在运行时才能确定，这时可以使用 vars 变量来配置。vars 配置的是模块标识中的变量值，在模块标识中用 {key} 来表示变量。seajs.config({// 变量配置 vars: {);define(function(require, exports, module) {var lang = require();//=> 加载的是 path/to/i18n/zh-cn.js});mapArray',
+				// answer : {
+				// 	yes : '确定',
+				// 	no : '取消'
+				// },
+				sure : 'OK',
+				drag : true
+			});
+			// d2.drag();
+
+			// d2.init({
+			// 	title : '这是测试title',
+			// 	content : '这是测试content',
+			// 	sure : 'ok',
+			// 	drag : true
+			// });
+			
+		}
+		
+	</script>
+</head>
+<body>
+	<!-- <div class="dialog">
+		<span class="dialog_title">Test dialog title. <button>&#215;</button></span>
+		<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+		<hr>
+		<div class="answer">
+			<button>Test AnswerA</button>
+			<button>Test AnswerB</button>
+		</div>
+	</div> -->
+</body>
+</html>
