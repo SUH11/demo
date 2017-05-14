@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style>
+		#div1 { width:180px; height:180px; overflow:hidden; position:relative; }
+		#div1 span { display:block; width:100px; height:100px; position:absolute; left:0; top:0; background:yellow;  filter:alpha(opacity=50); opacity:.5; display:none; }
+		#div2 { width:500px; height:500px; overflow:hidden; position:absolute; left:200px; top:0; background:url(glass1.jpg) no-repeat; }
+	</style>
+	<script>
+		window.onload = function() {
+			var oDiv = document.getElementById('div1');
+			var oDiv2 = document.getElementById('div2');
+			var oSpan = oDiv.getElementsByTagName('span')[0];
+
+			oDiv.onmouseover = function() {
+				oSpan.style.display = 'block';
+			}
+
+			oDiv.onmouseout = function() {
+				oSpan.style.display = 'none';
+			}
+
+			oDiv.onmousemove = function( ev ) {
+				var ev = ev || event;
+				var L = ev.clientX - oSpan.offsetWidth/2;
+				var T = ev.clientY - oSpan.offsetHeight/2;
+
+				if ( L < 0 ) {
+					L = 0;
+				} else if( L > oDiv.offsetWidth - oSpan.offsetWidth ) {
+					L = oDiv.offsetWidth - oSpan.offsetWidth;
+				}
+
+				if ( T < 0 ) {
+					T = 0;
+				} else if( T > oDiv.offsetHeight - oSpan.offsetHeight ) {
+					T = oDiv.offsetHeight - oSpan.offsetHeight;
+				}
+				oSpan.style.left = L + 'px'
+				oSpan.style.top = T + 'px'
+
+				// 900为大图的宽高
+				oDiv2.style.backgroundPosition = -L*900/oDiv.offsetWidth + 'px ' + (-T*900/oDiv.offsetWidth) + 'px'; 
+
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<img src="glass2.jpg">
+		<span></span>
+	</div>
+	<div id="div2"></div>
+</body>
+</html>
