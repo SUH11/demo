@@ -4,7 +4,7 @@
 	<title></title>
 	<meta charset="utf-8">
 	<style>
-		#div1 { width:196px; height:91px; background:url(eye.png) no-repeat; position:absolute; left:300px; top:200px; }
+		#div1 { width:196px; height:91px; background:url(265.png) no-repeat; position:absolute; left:300px; top:200px; }
 		#div1 div { border:2px solid #000; border-radius:50%; position:absolute; left:115px; top:42px; }
 		#div1 div:nth-of-type(2) { border:2px solid #000; border-radius:50%; position:absolute; left:135px; top:42px; }
 	</style>
@@ -31,31 +31,13 @@
 					var changeX = 0;
 					var changeY = 0;
 
-					var b = Math.abs( x - (l + obj.parentNode.offsetLeft) );
-					var a = Math.abs( y - (t + obj.parentNode.offsetTop) );	
+					var b = x - (l + obj.parentNode.offsetLeft);
+					var a = y - (t + obj.parentNode.offsetTop);	
 
+					// 利用atan2修复判断方向问题 atan2 表示 x+yi
+					changeX = Math.sin(Math.atan2(b,a))*r;
+					changeY = Math.cos(Math.atan2(b,a))*r;
 					
-					if ( x > l + obj.parentNode.offsetLeft && y > t + obj.parentNode.offsetTop ) {
-						// 右下
-						changeX = Math.sin(Math.atan(b/a))*r;
-						changeY = Math.cos(Math.atan(b/a))*r;
-
-					} else if (x > l + obj.parentNode.offsetLeft && y < t + obj.parentNode.offsetTop) {
-						// 右上
-						changeX = Math.sin(Math.atan(b/a))*r;
-						changeY = Math.cos(Math.atan(b/a))*-r;
-
-					} else if (x < l + obj.parentNode.offsetLeft && y < t + obj.parentNode.offsetTop) {
-						// 左上
-						changeX = Math.sin(Math.atan(b/a))*-r;
-						changeY = Math.cos(Math.atan(b/a))*-r;
-
-					} else if (x < l + obj.parentNode.offsetLeft && y > t + obj.parentNode.offsetTop) {
-						// 左下
-						changeX = Math.sin(Math.atan(b/a))*-r;
-						changeY = Math.cos(Math.atan(b/a))*r;
-					}
-
 					obj.style.left = l + changeX + 'px';
 					obj.style.top = t + changeY + 'px';
 
