@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style>
+		body { margin:0; }
+		#div1 { width:50px; height:50px; background:yellowgreen; position:absolute; left:200px; top:200px; }
+		.box { border:1px solid #000; position:absolute; }
+	</style>
+	<script>
+		window.onload = function() {
+			var oDiv = document.getElementById('div1');
+
+			var num = 0;
+			var val = 100;
+
+			var L = 100;
+			var T = 200;
+
+			// sin函数图像作用：流体效果的基础
+
+			setInterval(function() {
+				num ++;
+				oDiv.style.left = L + num*Math.PI/180*val + 'px';
+				oDiv.style.top = T - Math.sin(num*Math.PI/180)*val + 'px';
+
+				var oBox = document.createElement('div');
+				oBox.className = 'box';
+				document.body.appendChild(oBox);
+				oBox.style.left = oDiv.offsetLeft + 'px';
+				oBox.style.top = oDiv.offsetTop + 'px';
+
+
+
+			}, 30);
+		}
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>
