@@ -6,3 +6,9 @@
 	Math.atan() 
 	Math.atan2() // atan2需要看一看，可能会有新思路
 	
+	
+2017.05.15	sea.js模块化开发
+		gruntjs 数据结构: 链表 字典
+
+
+	
