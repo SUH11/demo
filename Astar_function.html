@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body, ul { margin:0; }
+		ul { padding:0; }
+		li { list-style:none; }
+
+		#ul1{ height:auto; overflow:hidden; margin:20px auto; border:1px #000 solid; border-bottom:none; border-right:none;}
+		#ul1 li{border:1px #000 solid; border-top:none; border-left:none; float:left;}
+		#input1 { display:block; margin:0 auto; }
+		#ul1 li.start { background:red; }
+		#ul1 li.style { background:blue; }
+		#ul1 li.end { background:green; }
+	</style>
+</head>
+<body>
+	<ul id="ul1"></ul>
+	<input type="button" value="开始寻路" id="input1" name="">
+
+	<script>
+		var oUl = document.getElementById('ul1');
+		var aLi = oUl.getElementsByTagName('li');
+		var oInput = document.getElementById('input');
+		var beginLi = null;
+		var endLi = null;
+		var closeArr = [];
+		var openArr = [];
+
+		// 生成网格
+		var map = [
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,3,0,0,0,0,0,2,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		];
+		var cols = Math.sqrt(map.length);
+		var sizeGrap = 20;
+
+		init();
+
+		function init() {
+			createMap();
+			openFn();
+		}
+
+		// 创建起始点 终点 和障碍物
+		function createMap() {
+			oUl.style.width = (sizeGrap+1)*cols + 1 + 'px';
+			for ( var i = 0; i < map.length; i ++ ) {
+				var oLi = document.createElement('li');
+				oLi.style.width = sizeGrap + 'px';
+				oLi.style.height = sizeGrap + 'px';
+				oUl.appendChild(oLi);
+
+				if ( map[i] == 1 ) {
+					oLi.className = 'start';
+					beginLi = oLi;
+					openArr.push(oLi);
+				} else if ( map[i] == 2) {
+					oLi.className = 'end';
+					endLi = oLi;
+				} else if ( map[i] == 3) {
+					oLi.className = 'style';
+					closeArr.push(oLi);
+				}
+			}
+		}
+
+		// open队列函数
+		function openFn() {
+			var nowLi = openArr.shift();
+			if ( nowLi == endLi ) {
+				showLine();
+				return;
+			}
+			closeFn(nowLi);
+			findLi(nowLi);
+			openArr.sort(function(li1,li2){
+				return li1.num - li2.num;
+			});
+			console.log(openArr);
+			openFn();
+		}
+		function findLi(nowLi) {
+			var result = [];
+			for ( var i = 0; i < aLi.length; i ++ ) {
+				if ( !filter(aLi[i]) ) {
+					result.push(aLi[i]);
+				}
+			}
+			function filter(li) {
+				for ( var i = 0; i < closeArr.length; i ++ ) {
+					if ( closeArr[i] == li ) {
+						return true;
+					}
+				}
+				for ( var i = 0; i < openArr.length; i ++ ) {
+					if ( openArr[i] == li ) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			for ( var i = 0; i < result.length; i ++ ) {
+				if ( (Math.abs(result[i].offsetLeft - nowLi.offsetLeft) <= sizeGrap+1) && (Math.abs(result[i].offsetTop - nowLi.offsetTop) <= sizeGrap+1) ) {
+					result[i].num = f(result[i]);
+					result[i].parent = nowLi;
+					openArr.push(result[i]);
+				}
+			}
+			
+
+		}
+
+		// 开始走动
+		function showLine() {
+			var result = [];
+			var lastLi = closeArr.pop();
+			var iNow = 0;
+			findParent(lastLi);	
+			function findParent(li) {
+				result.unshift(li);
+				if ( li.parent == beginLi ) {
+					return;
+				}
+				findParent(li.parent);
+			}
+			var timer = setInterval(function(){
+				result[iNow].style.background = 'red';
+				iNow ++;
+				if ( iNow == result.length ) {
+					clearInterval(timer);
+				}
+			},500);
+		}
+
+		function closeFn(nowLi) {
+			closeArr.push(nowLi);
+		}
+
+		// A*估价函数
+		function f(nodeLi) {
+			return g(nodeLi) + h(nodeLi);
+		}
+
+		function g(nodeLi) {
+			var a = beginLi.offsetLeft - nodeLi.offsetLeft;
+			var b = beginLi.offsetTop - nodeLi.offsetTop;
+			return Math.sqrt(a*a + b*b);
+		}
+
+		function h(nodeLi) {
+			var a = endLi.offsetLeft - nodeLi.offsetLeft;
+			var b = endLi.offsetTop - nodeLi.offsetTop;
+			return Math.sqrt(a*a + b*b);
+		}
+		
+	</script>
+</body>
+</html>
