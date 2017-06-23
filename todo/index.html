@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>my todo app</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <div class="msg">
+        <span class="msg-content">aaaaaaaaaaa</span>
+        <span class="comfirmed anchor">知道了</span>
+    </div>
+    <div class="container">
+        <h1>我的备忘录</h1>
+        <div class="add-task">
+            <input type="text" placeholder="e.g 记得做课程设计" name="content" autofocus autocomplete="off">
+            <input class="submit" value="submit" type="submit">
+        </div>
+        <div class="task-list"></div>
+        <div class="task-detail-mask"></div>
+        <div class="task-detail">
+            <!-- <div class="content" name="content">记得做课程设计</div>
+            <div class="decs">
+                <textarea></textarea>
+            </div>
+            <div class="remind">
+                <input type="date">
+                <button class="submit">确定</button>
+            </div> -->
+        </div>
+    </div>
+    <video src="alert.mp3" class="alerter"></video>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.datetimepicker.full.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/base.js"></script>
+</body>
+</html>
