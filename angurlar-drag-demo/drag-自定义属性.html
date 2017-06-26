@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta  charset="utf-8">
+	<title></title>
+	<style>
+	#div1 { width:100px; height:100px; position:absolute; background:yellowgreen;}
+	</style>
+	<script src="jquery-1.11.1.js"></script>
+	<script src="angular.min.js"></script>
+	<script>
+		var m1 = angular.module('myApp',[]);
+
+		m1.controller('Aaa',['$scope',function($scope){
+			
+		}]);
+
+
+		m1.directive('myDrag',function(){
+			return {
+				restrict : 'A',
+				link : function(scope, element, attr) {
+					/*
+						false : 普通拖拽
+						true ：虚框拖拽
+					*/
+					var disX = 0;
+					var disY = 0;
+					attr.myDrag = angular.equals(attr.myDrag, 'true');
+
+					console.log(attr.myDrag)
+
+					element.on('mousedown', function(ev){
+						var _this = this;
+						disX = ev.pageX - $(this).offset().left;
+						disY = ev.pageY - $(this).offset().top;
+
+						if ( attr.myDrag ) {
+							var $line = $('<div></div>');
+							$line.css({
+								width : $(this).outerWidth(),
+								height : $(this).outerHeight(),
+								position : 'absolute',
+								left : $(this).offset().left,
+								top : $(this).offset().top,
+								border : '1px dotted gray'
+							});
+
+							$('body').append($line);
+						}
+
+						$(document).on('mousemove', function(ev){
+
+							if ( attr.myDrag ) {
+
+								$line.css({
+									'left' : ev.pageX - disX,
+									'top' : ev.pageY - disY,
+								});
+
+							}else{
+								$(_this).css({
+									'left' : ev.pageX - disX,
+									'top' : ev.pageY - disY,
+								});
+							}
+							
+						});
+
+						$(document).on('mouseup', function(){
+							$(document).off();
+							if ( attr.myDrag ) {
+								$(_this).css({
+									'left' : $line.offset().left,
+									'top' : $line.offset().top,
+								});
+								$line.remove();
+							}
+						});
+
+						return false;
+
+					});
+				}
+			};
+		});
+
+		
+	</script>
+</head>
+<body ng-controller="Aaa">
+	<div id="div1" my-drag="true"></div>
+</body>
+</html>
