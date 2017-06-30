@@ -17,4 +17,6 @@
 2017.06.23 JQ备忘录
 
 2017.06.26 angular自定义指令之选项卡	angular实现自定义属性
+
+2017.06.30 基于angularjs的webapp
 		
