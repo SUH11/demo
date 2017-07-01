@@ -1,0 +1,18 @@
+<ul class="position-list">
+    <!-- <li class="bg-w item">
+        <img src="../image/company-3.png" alt="" class="logo f-l">
+        <h3 class="title">销售</h3>
+        <p class="text">
+            千度[上海] 互联网<br>
+            2017.07.01
+        </p>
+    </li> -->
+    <li ng-repeat="item in data" class="bg-w item">
+        <img src="{{item.imgSrc}}" alt="" class="logo f-l">
+        <h3 class="title" ng-bind="item.name"></h3>
+        <p class="text" ng-bind="item.companyName + '[' + item.city + ']'+ item.industry">
+            千度[上海] 互联网<br>
+        </p>
+        <p class="text" ng-bind="item.time"></p>
+    </li>
+</ul>

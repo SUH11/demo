@@ -75,7 +75,7 @@ gulp.task('clean', function() {
 });
 
 // 总任务
-gulp.task('build', ['lib', 'html', 'json', 'less', 'js', 'image', 'clean']);
+gulp.task('build', ['lib', 'html', 'json', 'less', 'js', 'image']);
 
 // 服务任务
 gulp.task('serve', ['build'], function() {
