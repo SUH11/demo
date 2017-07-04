@@ -10,7 +10,9 @@
 .h(@px) {
     height: unit(@px / 37.5, rem);
 }
-
+.mi-h(@px) {
+    min-height: unit(@px / 37.5, rem);
+}
 .lh(@px) {
     line-height: unit(@px / 37.5, rem);
 }
@@ -80,6 +82,34 @@
 }
 .bg-w {
     background: white;
+}
+.c-w {
+    color: white;
+}
+.p-a {
+    position: absolute;
+}
+.p-r {
+    position: relative;
+}
+.c-r {
+    color: red;
+}
+
+.clear {
+    zoom: 1;
+}
+.clear:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.time {
+    .fs(13);
+    .pt(4);
+}
+button {
+    outline: none;
 }
 
 

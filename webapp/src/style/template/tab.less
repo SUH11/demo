@@ -1,0 +1,16 @@
+@import '../property.less';
+@import '../variable.less';
+
+.tab {
+    .fs(0);
+    li {
+        .fs(14);
+        width: 33.3333%;
+        .h(35);
+        .lh(35);
+        border-bottom: 2px solid @tabBgColor;
+        &.active {
+            border-bottom: 2px solid @headBgColor;
+        }
+    }
+}

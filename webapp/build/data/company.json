@@ -1,0 +1,62 @@
+{
+    "id": "c1",
+    "imageUrl": "/image/company-1.png",
+    "name": "慕课网",
+    "industry": "移动互联网",
+    "state": "A轮",
+    "people": "50-150人",
+    "positionClass": [{
+      "id": "jishu",
+      "name": "技术",
+      "positionList": [{
+        "id": "p1",
+        "name": "IOS前端工程师",
+        "createdDate": "2016-04-16 23:30",
+        "salary": "15k-25k"
+      },{
+        "id": "p2",
+        "name": "HTML5前端工程师助理",
+        "createdDate": "2017-07-03 10:30",
+        "salary": "1k-2k"
+      },{
+        "id": "p3",
+        "name": "Java工程师",
+        "createdDate": "2017-07-01 13:20",
+        "salary": "5k-8k"
+      },{
+        "id": "p4",
+        "name": "Java工程师助理",
+        "createdDate": "2017-06-01 13:20",
+        "salary": "2k-3k"
+      },{
+        "id": "p5",
+        "name": "UI设计师",
+        "createdDate": "2017-07-01 13:20",
+        "salary": "5k-8k"
+      }]
+    }, {
+      "id": "yunying",
+      "name": "运营",
+      "positionList": [{
+        "id": "y1",
+        "name": "运营总监",
+        "createdDate": "2016-04-10 13:30",
+        "salary": "25k以上"
+      },{
+        "id": "y2",
+        "name": "运营副总监",
+        "createdDate": "2016-04-10 13:30",
+        "salary": "25k以上"
+      },{
+        "id": "y3",
+        "name": "运营实习生",
+        "createdDate": "2016-04-10 13:30",
+        "salary": "1k-2k"
+      },{
+        "id": "y4",
+        "name": "运营工程师",
+        "createdDate": "2016-04-10 13:30",
+        "salary": "8k-9k"
+      }]
+    }]
+}

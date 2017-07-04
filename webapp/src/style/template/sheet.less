@@ -1,0 +1,49 @@
+@import '../property.less';
+@import '../variable.less';
+
+.sheet {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.2);
+    z-index: 99;
+    .wrap {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 8px;
+        font-size: 0;
+        max-height: 500px;
+        overflow: auto;
+        ul {
+            background-color: @bodyBgColor;
+            .fs(14);
+            li {
+                border-bottom: 1px solid @lineColor;
+                &.li:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+        ul, button {
+            border-radius: 5px;
+        }
+        li, button {
+            .h(40);
+            .lh(40);
+            color: @sheetColor;
+        }
+        button {
+            margin-top: 8px;
+            .fs(14);
+            width: 100%;
+            background-color: @bodyBgColor;
+            border-width: 0;
+            border-style: none;
+            padding:0;
+        }
+    }
+}

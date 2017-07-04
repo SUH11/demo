@@ -1,0 +1,25 @@
+@import '../property.less';
+@import '../variable.less';
+
+.position-info {
+    color: @positionDescColor;
+     border-bottom: 1px solid @listTitleBorderColor;
+    .title {
+        color: @listTitleColor;
+        border-bottom: 1px solid @listTitleBorderColor;
+    }
+    .info-detail, .title {
+        padding:10px;
+    }
+
+    .ml {
+        .ml(25);
+    }
+    p {
+        .pb(10);
+    }
+    img {
+        right: 24px;
+        top: 10px;
+    }
+}

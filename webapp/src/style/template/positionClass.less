@@ -1,0 +1,47 @@
+@import '../property.less';
+@import '../variable.less';
+
+.position-class {
+    .position-class-detail{
+        padding: 8px 10px;
+    }
+    h5 {
+        color: @positionDescColor;
+        .pb(10);
+        font-weight: normal;
+        .fs(14);
+    }
+    button {
+        color: @positionButtonColor;
+        border: 0;
+        background-color: @positionButtonBgColor;
+        .fs(16);
+        padding: .2rem .5rem;
+        border-radius: .5rem;
+        .mb(8);
+        .mr(5);
+        &.active {
+            color: @defaultColor;
+            background-color: @positionButtonActiveBgColor;
+        }
+    }
+    
+    ul {
+        border-top: 1px solid @listTitleBorderColor;
+        
+        li {
+            border-bottom: 1px solid @listTitleBorderColor;
+            padding: 14px;
+            time {
+               color: @positionPublishTimeColor;
+               .fs(12);
+            }
+            span {
+               right: 10px;
+               top: 14px;
+               color: @listSalaryColor;
+            } 
+        
+        }
+    }
+}

@@ -5,10 +5,29 @@
     .item {
         padding: 7px 3px;
         border-top: 1px solid @listLineColor;
+        .mi-h(65);
         .logo {
             .w(65);
             .h(65);
             .mr(3);
+        }
+       
+        .item-detail {
+            .pl(4);
+            .title {
+                color: @listTitleColor;
+                .fs(17);
+                font-weight: bold;
+            }
+            .text {
+                .fs(15);
+                .pt(4);
+                color: @positionDescColor;
+            }
+            .salary {
+                right: 10px;
+                color: @listSalaryColor;
+            }
         }
     }
 }

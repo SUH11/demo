@@ -7,12 +7,13 @@
             2017.07.01
         </p>
     </li> -->
-    <li ng-repeat="item in data" class="bg-w item">
-        <img src="{{item.imgSrc}}" alt="" class="logo f-l">
-        <h3 class="title" ng-bind="item.name"></h3>
-        <p class="text" ng-bind="item.companyName + '[' + item.city + ']'+ item.industry">
-            千度[上海] 互联网<br>
-        </p>
-        <p class="text" ng-bind="item.time"></p>
+    <li ui-sref="position({id:item.id})" ng-repeat="item in data|filterByObj:filterObj" class="bg-w item clear p-r">
+        <img src="{{item.imageUrl}}" alt="" class="logo f-l">
+        <div class="f-l item-detail">
+            <h3 class="title" ng-bind="item.job"></h3>
+            <span class="salary p-a" ng-bind="item.salaryName"></span>
+            <p class="text" ng-bind="item.companyName + '[' + item.cityName + ']'+ item.industryName"></p>
+            <p class="time" ng-bind="item.date"></p>
+        </div>
     </li>
 </ul>

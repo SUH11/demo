@@ -1,0 +1,35 @@
+@import '../property.less';
+@import '../variable.less';
+
+.search-bar {
+    background-color: @headBgColor;
+    .h(40);
+    .lh(40);
+    .search-icon {
+        width: 18px; 
+        height: 17px;
+        background: url(../image/icon.png) no-repeat  -14px -2.5px;
+        background-size: 250px 250px;
+    }
+    input {
+        background-color: @bodyBgColor;
+        border-radius: 80px;
+        border-style: none;
+        outline-width: 0;
+        color: @positionDescColor;
+        .pl(20);
+        .h(25);
+        .w(190);
+    }
+    button {
+        background-color: @headBgColor;
+        border: none;
+        color: @defaultColor;
+        .fs(14);
+        /* &:first-child {
+        }
+        &:last-child {
+            color: @muteColor;
+        } */
+    }
+}

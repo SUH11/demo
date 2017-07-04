@@ -37,6 +37,7 @@ gulp.task('json', function() {
 
 gulp.task('less', function() {
     gulp.src(app.srcPath + 'style/index.less')
+    .pipe($.plumber())
     // 编译less文件
     .pipe($.less())
     // 然后拷到这个目录下
@@ -50,6 +51,7 @@ gulp.task('less', function() {
 
 gulp.task('js', function() {
     gulp.src(app.srcPath + 'script/**/*.js')
+    .pipe($.plumber())
     // 合并js代码
     .pipe($.concat('index.js'))
     .pipe(gulp.dest(app.devPath + 'js'))
@@ -61,6 +63,7 @@ gulp.task('js', function() {
 
 gulp.task('image', function() {
     gulp.src(app.srcPath + 'image/**/*')
+    .pipe($.plumber())
     .pipe(gulp.dest(app.devPath + 'image'))
     .pipe($.imagemin())
     .pipe(gulp.dest(app.prdPath + 'image'))

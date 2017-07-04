@@ -7,7 +7,8 @@ angular.module('app').directive('appPosition', [function() {
         templateUrl: 'view/template/positionList.html',
         // 降低指令耦合度
         scope : {
-            data : '='
+            data : '=',
+            filterObj : '='
         }
     };
 }]);

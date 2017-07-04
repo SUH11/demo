@@ -1,0 +1,24 @@
+@import '../property.less';
+@import '../variable.less';
+
+.bottom-btn {
+    background-color: @headBgColor;
+    width: 100%;
+    .h(45);
+    .fs(16);
+    position: fixed;
+    left: 0; 
+    right: 0;
+    bottom: 0;
+    border: 0;
+}
+.position-desc {
+    color: @positionDescColor;
+    h5 {
+        border-bottom: 1px solid @listTitleBorderColor;
+        .fs(16);
+    }
+    h5, p {
+        padding: 10px;
+    }
+}
