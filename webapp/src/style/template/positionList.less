@@ -2,16 +2,26 @@
 @import '../variable.less';
 
 .position-list {
+    border-top: 1px solid @listLineColor;
     .item {
         padding: 7px 3px;
-        border-top: 1px solid @listLineColor;
+        border-bottom: 1px solid @listLineColor;
         .mi-h(65);
         .logo {
             .w(65);
             .h(65);
             .mr(3);
         }
-       
+        .star {
+            .w(18);
+            .h(18);
+            background-image:url(../image/star.png);
+            background-repeat:no-repeat;
+            background-size:18px 18px;
+            &.active {
+                background-image:url(../image/star-active.png);
+            }
+        }
         .item-detail {
             .pl(4);
             .title {
@@ -30,4 +40,6 @@
             }
         }
     }
+
+    
 }

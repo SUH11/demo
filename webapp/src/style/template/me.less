@@ -1,0 +1,51 @@
+@import '../property.less';
+@import '../variable.less';
+
+.me {
+    .me-img {
+        .w(65);
+        .h(65);
+        padding: 5px;
+        border-radius: 65px;
+        img {
+            .w(65);
+            .h(65);
+        }
+        line-height: 70px;
+        margin: 30px auto 10px;
+        background-color: rgba(199,121,46,.1);
+    }
+    .name {
+        .mb(20);
+    }
+    .btns {
+        .fs(0);
+        button {
+            
+            .w(165);
+            .h(90);
+            &.mr {
+                .mr(15px)
+            }
+            .mb(10);
+            border: none;
+            color: @defaultColor;
+            .fs(18);
+            background-color: @meBgColor;
+            &.logout {
+                .w(345);
+                .h(40);
+            }
+        }
+    }
+    .me-go-login {
+        button {
+            .w(345);
+            .h(40);
+            .mt(100);
+            color: @defaultColor;
+            background-color: @meBgColor;
+            border: none;
+        }
+    }
+}

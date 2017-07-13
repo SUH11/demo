@@ -1,0 +1,26 @@
+<div class="head ta-c c-w p-r">
+    <span class="title" ng-bind="text='求职网'"></span>
+</div>
+<div class="me ta-c">
+    <div ng-if="name">
+        <div class="me-img">
+            <img ng-src="{{image}}" alt="" class="va-t">
+        </div>
+        <span class="name d-b" ng-bind="name">茉莉</span>
+        <div class="btns">
+            <button class="mr" ui-sref="post">投递</button>
+            <button ui-sref="favorite">收藏</button>
+            <button class="mr">面试</button>
+            <button >邀约</button>
+            <button class="logout" ng-click="logout();">退出登录</button>
+        </div>
+    </div>
+    <div ng-hide="name" class="me-go-login">
+        <div class="me-img">
+            
+        </div>
+        <span class="name d-b">请先登陆</span>
+        <button ui-sref="login">去登陆</button>
+    </div>
+</div>
+<div app-foot></div>

@@ -1,4 +1,5 @@
 <div class="head">
-    <span class="text">10秒定制职位</span>
-    <button class="custom f-r">去登录</button>
+    <span class="text" ng-if="!name">10秒定制职位</span>
+    <button class="custom f-r" ui-sref="login" ng-if="!name">去登录</button>
+    <span class="f-r c-w" ng-if="name" ng-bind="'你好,'+name"></span>
 </div>

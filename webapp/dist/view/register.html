@@ -1,0 +1,35 @@
+<div class="register">
+    <form action="" class="ta-c">
+        <div class="login-msg">
+            <div class="username">
+                <input ng-model="user.phone" validator="phone" class="d-b" type="text" placeholder="手机号">
+            </div>
+        </div>
+
+        <div class="login-msg">
+            <div class="username">
+                <input class="d-b" type="text" placeholder="请证明你不是机器人">
+            </div>
+        </div>
+
+        <div class="login-msg ta-l login-input-img">
+            <!-- <img src="https://passport.lagou.com/vcode/create?from=register&refresh=1499159417535" alt="" class="va-m" > -->
+            <span>看不清楚，<a href="#">换一张</a></span>
+        </div>
+
+        <div class="login-msg p-r ">
+            <div class="login-get-msg">
+                <input ng-model="user.code" class="text-msg" class="d-b" type="text" placeholder="短信验证码" validator="required">
+                <span ng-click="time?1==1:send()" class="get-msg" ng-bind="time?time:'获取'" ></span>
+            </div>
+        </div>
+        <div class="login-msg">
+            <div class="password">
+                <input class="d-b password" ng-model="user.password" validator="password"  type="password" placeholder="设置6-16位密码">
+            </div>
+        </div>
+        <button class="login-btn login-btn c-w" ng-click="submit()">注册</button>
+        <span class="d-b ta-l">已有账号？</span>
+        <button class="login-btn register-btn" ui-sref="login">登录</button>
+    </form>
+</div>

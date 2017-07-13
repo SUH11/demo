@@ -1,0 +1,106 @@
+@import '../property.less';
+@import '../variable.less';
+.register {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* background-image: url(../image/background.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%; */
+    background: linear-gradient(135deg,@loginBgToColor,@loginBgFromColor);
+    form {
+        .mt(20);
+        input {
+            width: 100%;
+            .fs(16);
+            color: @positionDescColor;
+        }
+        input, button {
+            .h(56);
+            border: none;
+            outline-style: none;
+        }
+        .login-btn {
+            .w(350);
+            border-radius: 6px;
+            .fs(20);
+            &.login-btn {
+                .mt(16);
+                background-color: @headBgColor;
+            }
+            &.register-btn {
+                background-color: transparent;
+                border: 1px solid @registerLineColor;
+                color: @registerLineColor;
+            }
+        }
+        .login-msg {
+            &.login-input-img {
+                background-color: transparent;
+                span {
+                    .ml(10);
+                    a {
+                        background-color: transparent;
+                        color: @registerChangeColor;
+                    }
+                }
+            }
+            input {
+                &.ng-invalid {
+                    &+span {
+                        p {
+                            position: absolute;
+                            right: 5px;
+                            top: 15px;
+                            text-align: left;
+                            .pb(6);
+                            color: @loginWarnColor;
+                        }
+                    }
+                }
+            }
+        }
+        .login-msg {
+            .fs(0);
+            margin: 16px auto 16px;
+            .w(350);
+            background-color: @defaultColor;
+            border-radius: 6px;
+            div {
+                .pl(10);
+                .pr(10);
+                border-sizing: border-box;
+                position: relative;
+                input.text-msg {
+                    padding-right: 40px;
+                    box-sizing: border-box;
+                    &.ng-invalid {
+                        &+span {
+                            p {
+                                right: 50px;
+                            }
+                        }
+                    }
+                }
+            }
+            .get-msg {
+                position: absolute;
+                right: 0;
+                top: 0;
+                .w(40);
+                .fs(12);
+                border-radius: 6px;
+                background-color: @defaultColor;
+                color: @positionDescColor;
+            }
+        }
+        span {
+            .w(350);
+            margin:16px auto 5px;
+            .fs(12);
+            color: @registerLineColor;
+        }
+    }
+}
