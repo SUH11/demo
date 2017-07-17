@@ -1,0 +1,33 @@
+
+Angular调试工具----chrome的：batarang
+
+第三方依赖管理：bower
+		npm i -g bower
+
+升级npm：npm i -g npm
+
+安装cnpm：npm i -g cnpm
+
+安装依赖模块：
+	bower install --save angular
+	bower install --save angular-animate
+卸载依赖模块：
+	bower uninstall --save requirejs
+
+	1.cnpm i -g gulp
+	 npm init 在当前目录下初始化
+	 cnpm i --save-dev gulp
+	 cnpm install --save-dev gulp-less
+
+
+
+
+
+
+
+
+
+
+
+
+

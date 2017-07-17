@@ -1,257 +1,8 @@
 'use strict';
 
 // angular.module('app', ['ui.router', 'ngCookies']);
-angular.module('app', ['ui.router', 'ngCookies', 'validation']);
+angular.module('app', ['ui.router', 'ngCookies', 'validation', 'ngAnimate']);
 
-'use strict';
-angular.module('app').controller('companyCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
-
-    // 请求公司详情json数据
-    $http.get('data/company.json?id=' + $state.params.id).then(function(result) {
-        $scope.company = result.data;
-        // $scope.$broadcase广播收不到：
-        // 原因：接收方可能没有初始化完成
-    });
-
-
-}]);
-'use strict';
-angular.module('app').controller('favoriteCtrl', ['$scope', '$http', function($scope, $http) {
-    $http.get('data/myFavorite.json').then(function(resutl) {
-        $scope.list = resutl.data;
-    });
-
-    $scope.back = function() {
-        window.history.back();
-    }
-}]);
-'use strict';
-angular.module('app').controller('loginCtrl', ['$scope', '$http', '$state', 'cache', function($scope, $http, $state, cache) {
-    $scope.submit = function() {
-        $http.post('data/login.json', $scope.user).success(function(reusutl) {
-            cache.put('id', reusutl.id);
-            cache.put('name', reusutl.name);
-            cache.put('image', reusutl.image);
-            $state.go('main');
-        });
-    }
-
-}]);
-'use strict';
-angular.module('app').controller('mainCtrl', ['$scope', '$http', function($scope, $http) {
-
-    $http.get('/data/positionList.json').then(function(result){
-        $scope.list = result.data;
-    });
-    
-}]);
-'use strict';
-angular.module('app').controller('meCtrl', ['$scope','$state', 'cache', function($scope, $state, cache) {
-    if ( cache.get('name') ) {
-        $scope.name = cache.get('name');
-        $scope.image = cache.get('image');
-    }
-    $scope.logout = function () {
-        cache.remove('id');
-        cache.remove('name');
-        cache.remove('image');
-        $state.go('main');
-    }
-}]);
-'use strict';
-
-angular.module('app').controller('positionCtrl', ['$scope', '$http', '$state', '$q', '$log', 'cache', function($scope, $http, $state, $q, $log, cache) {
-    // cache.put('to', 'day');
-
-    $scope.isLogin = !!cache.get('name');
-
-    $scope.message = $scope.isLogin ? '投个简历' : '去登陆';
-
-    $scope.go = function() {
-
-        if ( $scope.message !== '已投递' ) {
-            if ( $scope.isLogin ) {
-                $http.post('data/handle.json', {
-                    id : $scope.position.id
-                }).success(function(result){
-                    $log.info(result);
-                    $scope.message = '已投递';
-                });
-            } else {
-                $state.go('login');
-            }
-        }
-
-    }
-
-    function getPositon() {
-        var def = $q.defer();
-        $http.get('/data/position.json', {
-            params : {
-                id : $state.params.id
-            }
-        }).then(function(result) {
-            $scope.position = result.data;
-            if ( $scope.position.posted ) {
-                $scope.message = '已投递';
-            }
-            def.resolve(result);
-        }).catch(function(result) {
-            def.reject(result);
-        });
-        return def.promise;
-    }
-
-    getPositon().then(function(result) {
-        getCompany(result.data.companyId);
-    }, function(result) {
-        // 失败
-    });
-
-    function getCompany(id) {
-        $http.get('/data/company.json?id=' + id).then(function(result) {
-            $scope.company = result.data;
-        });
-    }
-
-    
-
-
-}]);
-'use strict';
-angular.module('app').controller('postCtrl', ['$scope', '$http', function($scope, $http) {
-    $scope.tabList = [{
-        id : 'all', 
-        name : '全部'
-    },{
-        id : 'pass', 
-        name : '面试邀请'
-    },{
-        id : 'fail', 
-        name : '不合适'
-    }];
-
-    $http.get('data/myPost.json').then(function(result) {
-        $scope.list = result.data;
-    });
-
-    $scope.filterObj = {};
-
-    $scope.back = function() {
-        window.history.back();
-    }
-
-    $scope.tClick = function(id, name) {
-        switch(id) {
-            case 'all':
-                delete $scope.filterObj.state;
-                break;
-            case 'pass':
-                $scope.filterObj.state = '1';
-                break;
-            case 'fail':
-                $scope.filterObj.state = '-1';
-                break;
-            default:
-                break;
-
-        }
-    }
-
-}]);
-'use strict';
-angular.module('app').controller('registerCtrl', ['$scope', '$http', '$interval', '$state', function($scope, $http, $interval, $state) {
-    $scope.submit = function() {
-        $http.post('data/regist.json', $scope.user).success(function() {
-            console.log(111111111111)
-            $state.go('login');
-        });
-    }
-    $scope.send = function() {
-        $http.get('data/code.json').then(function(result) {
-            if ( result.data.state == 1 ) {
-                var count = 60;
-                $scope.time = '60s';
-                var interval = $interval(function() {
-                    if ( count <= 0 ) {
-                        $interval.cancel(interval);
-                        delete $scope.time;
-                        return;
-                    } else {
-                        count --;
-                        $scope.time = count + 's';
-                    }
-                    console.log(count)
-                }, 1000);
-            }
-        });
-    }
-}]);
-'use strict';
-angular.module('app').controller('searchCtrl', ['$scope', '$http', 'dict', function($scope, $http, dict) {
-
-    $scope.name = '';
-    $scope.search = function () {
-        $http.get('data/positionList.json?name' + $scope.name).then(function(result) {
-            $scope.list = result.data;
-        });
-    }
-
-    $scope.search();
-    $scope.sheet = {};
-    $scope.tabList = [{
-        id : 'city',
-        name : '城市'
-    }, {
-        id : 'salary',
-        name : '薪水'
-    }, {
-        id : 'scale',
-        name : '公司规模'
-    }];
-
-    // console.log($scope.tabList)
-    $scope.filterObj = {};
-    var tabId = '';
-    $scope.tClick = function(id, name) {
-        tabId = id;
-        $scope.sheet.list = dict[id];
-        $scope.sheet.visible = true;
-    }
-
-    $scope.sClick = function(id, name) {
-
-        $scope.$watch('list', function(newVal) {
-           if ( id ) {
-               angular.forEach($scope.tabList, function(item){
-                   if ( item.id === tabId ) {
-                       item.name = name;
-                   }
-               });
-               $scope.filterObj[tabId + 'Id'] = id;
-           } else {
-                delete  $scope.filterObj[tabId + 'Id'];
-                angular.forEach($scope.tabList, function(item){
-                    if ( item.id === tabId ) {
-                        switch( item.id ) {
-                            case 'city':
-                                item.name = '城市';
-                                break;
-                            case 'salary':
-                                item.name = '薪水';
-                                break;
-                            case 'scale':
-                                item.name = '公司规模';
-                                break;
-                        }
-                    }
-                });
-           }          
-        });
-
-        
-    }
-}]);
 'use strict';
 
 angular.module('app').value('dict', {}).run(['$http', 'dict', function($http, dict) {
@@ -557,6 +308,255 @@ angular.module('app').directive('appTab', [function() {
 }]);
 
 
+'use strict';
+angular.module('app').controller('companyCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+
+    // 请求公司详情json数据
+    $http.get('data/company.json?id=' + $state.params.id).then(function(result) {
+        $scope.company = result.data;
+        // $scope.$broadcase广播收不到：
+        // 原因：接收方可能没有初始化完成
+    });
+
+
+}]);
+'use strict';
+angular.module('app').controller('favoriteCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get('data/myFavorite.json').then(function(resutl) {
+        $scope.list = resutl.data;
+    });
+
+    $scope.back = function() {
+        window.history.back();
+    }
+}]);
+'use strict';
+angular.module('app').controller('loginCtrl', ['$scope', '$http', '$state', 'cache', function($scope, $http, $state, cache) {
+    $scope.submit = function() {
+        $http.post('data/login.json', $scope.user).success(function(reusutl) {
+            cache.put('id', reusutl.id);
+            cache.put('name', reusutl.name);
+            cache.put('image', reusutl.image);
+            $state.go('main');
+        });
+    }
+
+}]);
+'use strict';
+angular.module('app').controller('mainCtrl', ['$scope', '$http', function($scope, $http) {
+
+    $http.get('/data/positionList.json').then(function(result){
+        $scope.list = result.data;
+    });
+    
+}]);
+'use strict';
+angular.module('app').controller('meCtrl', ['$scope','$state', 'cache', function($scope, $state, cache) {
+    if ( cache.get('name') ) {
+        $scope.name = cache.get('name');
+        $scope.image = cache.get('image');
+    }
+    $scope.logout = function () {
+        cache.remove('id');
+        cache.remove('name');
+        cache.remove('image');
+        $state.go('main');
+    }
+}]);
+'use strict';
+
+angular.module('app').controller('positionCtrl', ['$scope', '$http', '$state', '$q', '$log', 'cache', function($scope, $http, $state, $q, $log, cache) {
+    // cache.put('to', 'day');
+
+    $scope.isLogin = !!cache.get('name');
+
+    $scope.message = $scope.isLogin ? '投个简历' : '去登陆';
+
+    $scope.go = function() {
+
+        if ( $scope.message !== '已投递' ) {
+            if ( $scope.isLogin ) {
+                $http.post('data/handle.json', {
+                    id : $scope.position.id
+                }).success(function(result){
+                    $log.info(result);
+                    $scope.message = '已投递';
+                });
+            } else {
+                $state.go('login');
+            }
+        }
+
+    }
+
+    function getPositon() {
+        var def = $q.defer();
+        $http.get('/data/position.json', {
+            params : {
+                id : $state.params.id
+            }
+        }).then(function(result) {
+            $scope.position = result.data;
+            if ( $scope.position.posted ) {
+                $scope.message = '已投递';
+            }
+            def.resolve(result);
+        }).catch(function(result) {
+            def.reject(result);
+        });
+        return def.promise;
+    }
+
+    getPositon().then(function(result) {
+        getCompany(result.data.companyId);
+    }, function(result) {
+        // 失败
+    });
+
+    function getCompany(id) {
+        $http.get('/data/company.json?id=' + id).then(function(result) {
+            $scope.company = result.data;
+        });
+    }
+
+    
+
+
+}]);
+'use strict';
+angular.module('app').controller('postCtrl', ['$scope', '$http', function($scope, $http) {
+    $scope.tabList = [{
+        id : 'all', 
+        name : '全部'
+    },{
+        id : 'pass', 
+        name : '面试邀请'
+    },{
+        id : 'fail', 
+        name : '不合适'
+    }];
+
+    $http.get('data/myPost.json').then(function(result) {
+        $scope.list = result.data;
+    });
+
+    $scope.filterObj = {};
+
+    $scope.back = function() {
+        window.history.back();
+    }
+
+    $scope.tClick = function(id, name) {
+        switch(id) {
+            case 'all':
+                delete $scope.filterObj.state;
+                break;
+            case 'pass':
+                $scope.filterObj.state = '1';
+                break;
+            case 'fail':
+                $scope.filterObj.state = '-1';
+                break;
+            default:
+                break;
+
+        }
+    }
+
+}]);
+'use strict';
+angular.module('app').controller('registerCtrl', ['$scope', '$http', '$interval', '$state', function($scope, $http, $interval, $state) {
+    $scope.submit = function() {
+        $http.post('data/regist.json', $scope.user).success(function() {
+            console.log(111111111111)
+            $state.go('login');
+        });
+    }
+    $scope.send = function() {
+        $http.get('data/code.json').then(function(result) {
+            if ( result.data.state == 1 ) {
+                var count = 60;
+                $scope.time = '60s';
+                var interval = $interval(function() {
+                    if ( count <= 0 ) {
+                        $interval.cancel(interval);
+                        delete $scope.time;
+                        return;
+                    } else {
+                        count --;
+                        $scope.time = count + 's';
+                    }
+                    console.log(count)
+                }, 1000);
+            }
+        });
+    }
+}]);
+'use strict';
+angular.module('app').controller('searchCtrl', ['$scope', '$http', 'dict', function($scope, $http, dict) {
+
+    $scope.name = '';
+    $scope.search = function () {
+        $http.get('data/positionList.json?name' + $scope.name).then(function(result) {
+            $scope.list = result.data;
+        });
+    }
+
+    $scope.search();
+    $scope.sheet = {};
+    $scope.tabList = [{
+        id : 'city',
+        name : '城市'
+    }, {
+        id : 'salary',
+        name : '薪水'
+    }, {
+        id : 'scale',
+        name : '公司规模'
+    }];
+
+    // console.log($scope.tabList)
+    $scope.filterObj = {};
+    var tabId = '';
+    $scope.tClick = function(id, name) {
+        tabId = id;
+        $scope.sheet.list = dict[id];
+        $scope.sheet.visible = true;
+    }
+
+    $scope.sClick = function(id, name) {
+
+        $scope.$watch('list', function(newVal) {
+           if ( id ) {
+               angular.forEach($scope.tabList, function(item){
+                   if ( item.id === tabId ) {
+                       item.name = name;
+                   }
+               });
+               $scope.filterObj[tabId + 'Id'] = id;
+           } else {
+                delete  $scope.filterObj[tabId + 'Id'];
+                angular.forEach($scope.tabList, function(item){
+                    if ( item.id === tabId ) {
+                        switch( item.id ) {
+                            case 'city':
+                                item.name = '城市';
+                                break;
+                            case 'salary':
+                                item.name = '薪水';
+                                break;
+                            case 'scale':
+                                item.name = '公司规模';
+                                break;
+                        }
+                    }
+                });
+           }          
+        });
+
+        
+    }
+}]);
 'use strict';
 
 angular.module('app').filter('filterByObj', [function() {

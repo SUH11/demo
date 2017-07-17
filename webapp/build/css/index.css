@@ -574,6 +574,13 @@ button {
   background-color: #1fc8a1;
   border: none;
 }
+.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0;
+}
+.ng-enter.ng-enter-active {
+  opacity: 1;
+}
 html,
 body {
   width: 100%;
